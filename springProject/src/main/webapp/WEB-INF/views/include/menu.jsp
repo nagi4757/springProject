@@ -5,5 +5,6 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 	<div style="text-align: center;">
 		<a href="${path}/member/list.do">회원관리</a>
+		<a href="${path}/board/list.do">게시판</a>
 	</div>
 	<hr>
