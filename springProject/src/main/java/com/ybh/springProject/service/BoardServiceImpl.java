@@ -58,8 +58,8 @@ public class BoardServiceImpl implements BoardService {
 
 	// 게시글 전체 목록
 	@Override
-	public List<BoardVO> listAll(String searchOption, String keyword) throws Exception {
-		return boardDao.listAll(searchOption, keyword);
+	public List<BoardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception {
+		return boardDao.listAll(start, end, searchOption, keyword);
 	}
 
 	// 게시글 조회수 증가
@@ -73,7 +73,6 @@ public class BoardServiceImpl implements BoardService {
 	     }
 	     // 시스템의 현재시간을 current_time에 저장
 	     long current_time = System.currentTimeMillis();
-	     System.out.println(update_time+"////"+current_time);
 	     // 일정시간이 경과 후 조회수 증가 처리 24*60*60*1000(24시간)
 	     // 시스템현재시간 - 열람시간 > 일정시간(조회수 증가가 가능하도록 지정한 시간)
 	     if(current_time - update_time > 5*1000){

@@ -2,9 +2,17 @@ package com.ybh.springProject.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.ybh.springProject.model.dto.MemberVO;
 
 public interface MemberService {
+	// 회원 로그인 체크
+	public boolean loginCheck(MemberVO vo, HttpSession session);
+	// 회원 로그인 정보
+	public MemberVO viewMember(MemberVO vo);
+	// 회원 로그아웃
+	public void logout(HttpSession session);
 	// 회원 목록 
 	public List<MemberVO> memberList();
 	// 회원 입력

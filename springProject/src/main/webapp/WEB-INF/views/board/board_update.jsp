@@ -11,15 +11,26 @@
     	$("#btnList").click(function(){
             location.href="${path}/board/list.do?curPage=${curPage}&searchOption=${searchOption}&keyword=${keyword}";
         });
-    	
-        $("#btnDelete").click(function(){
-            if(confirm("삭제하시겠습니까?")){
-                document.form1.action = "${path}/board/delete.do";
-                document.form1.submit();
-            }
-        });
         $("#btnUpdete").click(function(){
-        	location.href="${path}/board/update.do?bno=${dto.bno}&curPage=${curPage}&searchOption=${searchOption}&keyword=${keyword}";
+            //var title = document.form1.title.value; ==> name속성으로 처리할 경우
+            //var content = document.form1.content.value;
+            //var writer = document.form1.writer.value;
+            var title = $("#title").val();
+            var content = $("#content").val();
+            //var writer = $("#writer").val();
+            if(title == ""){
+                alert("제목을 입력하세요");
+                document.form1.title.focus();
+                return;
+            }
+            if(content == ""){
+                alert("내용을 입력하세요");
+                document.form1.content.focus();
+                return;
+            }
+            document.form1.action="${path}/board/update.do"
+            // 폼에 입력한 데이터를 서버로 전송
+            document.form1.submit();
         });
     });
 </script>
@@ -37,10 +48,10 @@
     	조회수 : ${dto.viewcnt}
     </div>
     <div>
-		제목 ${dto.title}
+		제목 <input name="title" id="title" size="80" value="${dto.title}" placeholder="제목을 입력해주세요">
     </div>
     <div>
-    	내용 <textarea name="content" id="content" rows="4" cols="80" readonly="readonly">${dto.content}</textarea>
+    	내용 <textarea name="content" id="content" rows="4" cols="80" placeholder="내용을 입력해주세요">${dto.content}</textarea>
     </div>
     <div>
     	작성자 ${dto.userName}
@@ -50,8 +61,7 @@
         <input type="hidden" name="bno" value="${dto.bno}">
     <!-- 본인이 쓴 게시물만 수정, 삭제가 가능하도록 처리 -->
     <c:if test="${sessionScope.userId == dto.writer}">
-        <button type="button" id="btnUpdete">수정</button>
-        <button type="button" id="btnDelete">삭제</button>
+        <button type="button" id="btnUpdete">확인</button>
     </c:if>
     	<!-- **상세보기 화면에서 게시글 목록화면으로 이동 -->
         <button type="button" id="btnList">목록</button>

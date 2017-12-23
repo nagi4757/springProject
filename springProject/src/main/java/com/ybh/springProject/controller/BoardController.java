@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ybh.springProject.common.BoardPager;
 import com.ybh.springProject.model.dto.BoardVO;
 import com.ybh.springProject.service.BoardService;
 
@@ -27,14 +28,21 @@ public class BoardController {
 	
 	// 게시글 목록
 	@RequestMapping("list.do")
-	// @RequestParam(defaultValue="") ==> 기본값 할당
+	// @RequestParam(defaultValue="") ==> 기본값 할당 : 현재페이지를 1로 초기화
 	public ModelAndView list(@RequestParam(defaultValue="title") String searchOption,
-			@RequestParam(defaultValue="") String keyword) throws Exception{
-        List<BoardVO> list = boardService.listAll(searchOption, keyword);
-        // 레코드의 갯수
+			@RequestParam(defaultValue="") String keyword,
+			@RequestParam(defaultValue="1") int curPage) throws Exception{
+		
+        // 레코드의 갯수 계산
         int count = boardService.countArticle(searchOption, keyword);
-        // ModelAndView - 모델과 뷰
-        ModelAndView mav = new ModelAndView();
+        
+        // 페이지 나누기 관련 처리
+        BoardPager boardPager = new BoardPager(count, curPage);
+        int start = boardPager.getPageBegin();
+        int end = boardPager.getPageEnd();
+        
+        List<BoardVO> list = boardService.listAll(start, end, searchOption, keyword);
+        
         /*mav.addObject("list", list); // 데이터를 저장
         mav.addObject("count", count);
         mav.addObject("searchOption", searchOption);
@@ -45,8 +53,13 @@ public class BoardController {
         map.put("count", count); // 레코드의 갯수
         map.put("searchOption", searchOption); // 검색옵션
         map.put("keyword", keyword); // 검색키워드
+        map.put("boardPager", boardPager);
+        
+        // ModelAndView - 모델과 뷰
+        ModelAndView mav = new ModelAndView();
         mav.addObject("map", map); // 맵에 저장된 데이터를 mav에 저장
         mav.setViewName("board/board_list"); // 뷰를 list.jsp로 설정
+        
         return mav; // list.jsp로 List가 전달된다.
     }
 	
@@ -60,7 +73,11 @@ public class BoardController {
 	
 	// 게시글 작성처리
 	@RequestMapping(value="insert.do", method=RequestMethod.POST)
-    public String insert(@ModelAttribute BoardVO vo) throws Exception{
+    public String insert(@ModelAttribute BoardVO vo, HttpSession session) throws Exception{
+		// session에 저장된 userId를 writer에 저장
+		String writer = (String)session.getAttribute("userId");
+		// vo에 writer를 세팅
+		vo.setWriter(writer);
         boardService.create(vo);
         return "redirect:list.do";
     }
@@ -69,7 +86,11 @@ public class BoardController {
     // @RequestParam : get/post방식으로 전달된 변수 1개
     // HttpSession 세션객체
 	@RequestMapping(value="view.do", method=RequestMethod.GET)
-	public ModelAndView view(@RequestParam int bno, HttpSession session) throws Exception{
+	public ModelAndView view(@RequestParam int bno, 
+			HttpSession session, 
+			@RequestParam(defaultValue="1") int curPage, 
+    		@RequestParam(defaultValue="title") String searchOption, 
+    		@RequestParam(defaultValue="") String keyword) throws Exception{
 		// 조회수 증가 처리
 	    boardService.increaseViewcnt(bno, session);
 	    // 모델(데이터)+뷰(화면)를 함께 전달하는 객체
@@ -77,6 +98,9 @@ public class BoardController {
 	    // 뷰의 이름
 	    mav.setViewName("board/board_view");
 	    // 뷰에 전달할 데이터
+	    mav.addObject("curPage", curPage);
+    	mav.addObject("searchOption", searchOption);
+    	mav.addObject("keyword", keyword);
 	    mav.addObject("dto", boardService.read(bno));
 	    return mav;
 	}
@@ -87,6 +111,20 @@ public class BoardController {
     public String update(@ModelAttribute BoardVO vo) throws Exception{
         boardService.update(vo);
         return "redirect:list.do";
+    }
+    
+    @RequestMapping(value="update.do", method=RequestMethod.GET)
+    public ModelAndView update(@RequestParam int bno, 
+    		@RequestParam(defaultValue="1") int curPage, 
+    		@RequestParam(defaultValue="title") String searchOption, 
+    		@RequestParam(defaultValue="") String keyword) throws Exception{
+    	ModelAndView mav = new ModelAndView();
+    	mav.setViewName("board/board_update");
+    	mav.addObject("curPage", curPage);
+    	mav.addObject("searchOption", searchOption);
+    	mav.addObject("keyword", keyword);
+    	mav.addObject("dto", boardService.read(bno));
+	    return mav;
     }
     
     // 게시글 삭제
