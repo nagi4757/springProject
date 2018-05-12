@@ -42,14 +42,26 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	// 게시글 전체 목록
 	@Override
-	public List<BoardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception {
+	public List<BoardVO> listAll(int start, int end, String searchOption, String keyword, int bgroup) throws Exception {
 		// 검색옵션, 키워드 맵에 저장
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
 	    map.put("start", start);
 	    map.put("end", end);
+	    map.put("bgroup", bgroup);
 		return SqlSession.selectList("board.listAll", map);
+	}
+	
+	// 강의 게시글 전체 목록
+	@Override
+	public List<BoardVO> lectureListAll(int start, int end, int bgroup) throws Exception {
+		// 검색옵션, 키워드 맵에 저장
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start",start);
+		map.put("end", end);
+		map.put("bgroup", bgroup);
+		return SqlSession.selectList("board.lectureListAll", map);
 	}
 
 	// 게시글 조회수 증가
@@ -60,11 +72,18 @@ public class BoardDAOImpl implements BoardDAO {
 
 	// 게시글 레코드 갯수
 	@Override
-	public int countArticle(String searchOption, String keyword) throws Exception {
+	public int countArticle(String searchOption, String keyword, int bgroup) throws Exception {
 		// 검색옵션, 키워드 맵에 저장
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
+		map.put("bgroup", bgroup);
 		return SqlSession.selectOne("board.countArticle", map);
+	}
+	
+	// 강의 게시글 레코드 갯수 메서드 추가
+	@Override
+	public int lectureCountArticle(int bgroup) throws Exception {
+		return SqlSession.selectOne("board.lectureCountArticle", bgroup);
 	}
 }

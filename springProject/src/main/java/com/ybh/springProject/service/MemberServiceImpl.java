@@ -15,26 +15,26 @@ import com.ybh.springProject.model.dto.MemberVO;
 public class MemberServiceImpl implements MemberService {
 	
 	// MemberDAOImpl 객체를 스프링에서 생성하여 주입시킴
-	@Inject
-	MemberDAOImpl memberDao;
+	@Inject MemberDAOImpl memberDao;
 	
 	// 회원 로그인 체크
 	@Override
     public boolean loginCheck(MemberVO vo, HttpSession session) {
         boolean result = memberDao.loginCheck(vo);
         if (result) { // true일 경우 세션에 등록
-            MemberVO vo2 = viewMember(vo);
+            MemberVO vo2 = loginMember(vo);
             // 세션 변수 등록
             session.setAttribute("userId", vo2.getUserId());
             session.setAttribute("userName", vo2.getUserName());
+            session.setAttribute("userIsAdmin", vo2.getUserIsAdmin());
         } 
         return result;
     }
 	
 	// 회원 로그인 정보
 	@Override
-    public MemberVO viewMember(MemberVO vo) {
-        return memberDao.viewMember(vo);
+    public MemberVO loginMember(MemberVO vo) {
+        return memberDao.loginMember(vo);
     }
 	
 	// 회원 로그아웃

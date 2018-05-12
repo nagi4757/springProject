@@ -24,8 +24,7 @@ public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	// MemberService 객체를 스프링에서 생성하여 주입시킴
-	@Inject
-	MemberService memberService;
+	@Inject MemberService memberService;
 	
 	// 로그인 화면
 	@RequestMapping("login.do")
@@ -40,8 +39,8 @@ public class MemberController {
         ModelAndView mav = new ModelAndView();
         if (result == true) { // 로그인 성공
             // main.jsp로 이동
-            mav.setViewName("home");
-            mav.addObject("msg", "success");
+            mav.setViewName("main");
+            mav.addObject("msg", "홈페이지 방문을 환영합니다!");
         } else {    // 로그인 실패
             // login.jsp로 이동
             mav.setViewName("member/member_login");

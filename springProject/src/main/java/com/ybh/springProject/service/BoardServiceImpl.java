@@ -1,11 +1,14 @@
 package com.ybh.springProject.service;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 
 import com.ybh.springProject.model.dao.BoardDAO;
 import com.ybh.springProject.model.dto.BoardVO;
@@ -58,8 +61,8 @@ public class BoardServiceImpl implements BoardService {
 
 	// 게시글 전체 목록
 	@Override
-	public List<BoardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception {
-		return boardDao.listAll(start, end, searchOption, keyword);
+	public List<BoardVO> listAll(int start, int end, String searchOption, String keyword, int bgroup) throws Exception {
+		return boardDao.listAll(start, end, searchOption, keyword, bgroup);
 	}
 
 	// 게시글 조회수 증가
@@ -84,7 +87,38 @@ public class BoardServiceImpl implements BoardService {
 
 	// 게시글 레코드 갯수
 	@Override
-	public int countArticle(String searchOption, String keyword) throws Exception {
-		return boardDao.countArticle(searchOption, keyword);
+	public int countArticle(String searchOption, String keyword, int bgroup) throws Exception {
+		return boardDao.countArticle(searchOption, keyword, bgroup);
 	}
+	
+	// 강의 게시글 레코드 갯수
+	@Override
+	public int lectureCountArticle(int bgroup) throws Exception {
+		return boardDao.lectureCountArticle(bgroup);
+	}
+	
+	// 강의 게시글 전체목록
+	@Override
+	public List<BoardVO> lectureListAll(int start, int end, int bgroup) throws Exception {
+		return boardDao.lectureListAll(start, end, bgroup);
+	}
+	
+	// 이미지 처리
+	@Override
+	public String imageUpload(String uploadPath, String originalName, byte[] fileData) throws Exception {
+		// UUID 발급
+		UUID uuid = UUID.randomUUID();
+		// 저장할 파일명 = UUID + 원본이름
+		String savedName = uuid.toString() + "_" + originalName;
+		// 파일 경로(기존의 업로드경로), 파일명을 받아 파일 객체 생성
+		File target = new File(uploadPath, savedName);
+		// 임시 디렉토리에 업로드된 파일을 지정된 디렉토리로 복사
+		FileCopyUtils.copy(fileData, target);
+		
+		String uploadedFileName = "/resources/images/" + savedName;
+		
+		return uploadedFileName;
+		
+	}
+	
 }

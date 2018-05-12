@@ -1,10 +1,9 @@
 package com.ybh.springProject.common;
 
-public class BoardPager {
-	// 페이지당 게시물 수
-	public static final int PAGE_SCALE = 10;
-	// 화면당 페이지 수
-	public static final int BLOCK_SCALE = 10;
+public class PagePager {
+	
+	private int PAGE_SCALE; // 페이지당 게시물 수
+	private int BLOCK_SCALE; // 화면당 페이지 수
     private int curPage; // 현재 페이수
     private int prevPage; // 이전 페이지
     private int nextPage; // 다음 페이지
@@ -23,11 +22,13 @@ public class BoardPager {
     
     // 생성자
     // BoardPager(레코드 갯수, 현재 페이지 번호)
-    public BoardPager(int count, int curPage){
+    public PagePager(int count, int curPage, int PAGE_SCALE, int BLOCK_SCALE){
         curBlock = 1; // 현재 페이지 블록 번호
         this.curPage = curPage; // 현재 페이지 설정
+        this.PAGE_SCALE = PAGE_SCALE; // 페이지당 게시물 수
+        this.BLOCK_SCALE = BLOCK_SCALE; // 화면당 페이지 수
         setTotPage(count); // 전체 페이지 갯수 계산
-        setPageRange(); // 
+        setPageRange();
         setTotBlock(); // 전체 페이지 블록 갯수 계산
         setBlockRange(); // 페이지 블록의 시작, 끝 번호 계산
     }
@@ -92,7 +93,6 @@ public class BoardPager {
         // 91 / 10 => 9.1 => 10개
         totBlock = (int)Math.ceil(totPage / BLOCK_SCALE);
     }
-    
     public int getCurBlock() {
         return curBlock;
     }

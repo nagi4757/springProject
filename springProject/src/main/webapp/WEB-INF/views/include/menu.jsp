@@ -3,17 +3,80 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- context 경로 -->
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-	<div style="text-align: center;">
-		<a href="${path}/member/list.do">회원관리</a>
-		<a href="${path}/board/list.do">게시판</a>
-		<c:choose>
-			<c:when test="${sessionScope.userId == null}">
-				<a href="${path}/member/login.do">로그인</a>
-    		</c:when>
-    		<c:otherwise>
-        		${sessionScope.userName}님이 로그인중입니다.
-        		<a href="${path}/member/logout.do">로그아웃</a>
-    		</c:otherwise>
-		</c:choose>
+<c:set var="allPath" value="${requestScope['javax.servlet.forward.servlet_path']}" /> 
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
+<!-- Navigation -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="/springProject">Nagi's World</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        	<span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+        	<ul class="navbar-nav ml-auto">
+            	<li class="nav-item">
+              		<a class="nav-link" href="/springProject">
+              			<spring:message code="menu.number1"/>
+              		</a>
+            	</li>
+            	<li class="nav-item">
+              		<a class="nav-link" href="${path}/board/list.do">
+              			<spring:message code="menu.number2"/>
+              		</a>
+            	</li>
+            	<li class="nav-item dropdown">
+              		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                		<spring:message code="menu.number3"/>
+              		</a>
+              		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                		<a class="dropdown-item" href="javascript:lectureList(2)">Python</a>
+                		<a class="dropdown-item" href="javascript:lectureList(3)">UML 시스템 설계</a>
+              		</div>
+              		<form name="lectureList" method="post" action="${path}/lecture/list.do">
+              			<input type="hidden" id="lectureListBgroup" name="bgroup" value="${map.bgroup}">
+              		</form>
+            	</li>
+            	<c:choose>
+	            	<c:when test="${sessionScope.userId == null}">
+	            		<li class="nav-item">
+	              			<a class="nav-link" href="${path}/member/login.do">
+	              				<spring:message code="menu.number4"/>
+	              			</a>
+	            		</li>
+	            		<li class="nav-item">
+	              			<a class="nav-link" href="${path}/member/write.do">
+	              				<spring:message code="menu.number5"/>
+	              			</a>
+	            		</li>
+	            	</c:when>
+	            	<c:otherwise>
+	            		<li class="nav-item">
+	              			<a class="nav-link" href="${path}/member/list.do">
+	              				<spring:message code="menu.number6"/>
+	              			</a>
+	            		</li>
+	            		<li class="nav-item">
+	              			<a class="nav-link" href="${path}/member/logout.do">
+	              				<spring:message code="menu.number7"/>
+	              			</a>
+	            		</li>
+	            	</c:otherwise>
+            	</c:choose>
+            	<li class="nav-item dropdown">
+              		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                		<spring:message code="menu.number8"/>
+              		</a>
+              		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownLanguage">
+                		<a class="dropdown-item" href="javascript:langChange('ko')">한국어</a>
+                		<a class="dropdown-item" href="javascript:langChange('ja')">日本語</a>
+              		</div>
+              		<form name="langChange" method="post" action="/springProject${allPath}">
+              			<input type="hidden" id="langChangeBgroup" name="bgroup" value="${map.bgroup}">
+              			<input type="hidden" id="langChangeLang" name="lang" value="ko">
+              		</form>
+            	</li>
+        	</ul>
+    	</div>
 	</div>
-	<hr>
+</nav>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="reply">
+
+	<!-- 댓글 입력 -->
+	<insert id="insertReply">
+		INSERT INTO tbl_reply (
+			rno,
+			bno,
+			rgrpno,
+			replytext,
+			replyer
+		) VALUES (
+			NULL,
+			#{bno},
+			#{rgrpno},
+          	#{replytext},
+          	#{replyer}
+		)
+	</insert>
+	
+	<!-- 대댓글 입력 -->
+	<insert id="insertReReply">
+		INSERT INTO tbl_reply (
+			rno,
+			bno,
+			rgrpno,
+			rprtno,
+			rgrpord,
+			rdepth,
+			replytext,
+			replyer
+		) VALUES (
+			NULL,
+			#{bno},
+			#{rgrpno},
+			#{rprtno},
+			#{rgrpord},
+			#{rdepth},
+			#{replytext},
+			#{replyer}
+		)
+	</insert>
+	
+	<!-- 댓글 가장높은 번호찾기-->
+	<select id="selectReplyNo" resultType="int">
+		SELECT COALESCE(MAX(rno),0)+1 
+		FROM tbl_reply
+	</select>
+	
+	<!-- 댓글 그룹순서찾기 -->
+	<select id="selectReplyRgrpord" resultType="int">
+		SELECT COALESCE(MAX(rgrpord),0)+1 
+		FROM tbl_reply 
+		WHERE rgrpno = #{rgrpno}
+	</select>
+	
+	<!-- 같은 부모 댓글 갯수 찾기 -->
+	<select id="selectPrtGrpReply" resultType="int">
+		SELECT COUNT(*)  
+		FROM tbl_reply 
+		WHERE rprtno = #{rprtno} AND rdepth = #{rdepth}
+	</select>
+	
+	
+	<!-- 대댓글 업데이트 -->
+	<update id="updateReReply">
+		UPDATE tbl_reply 
+		SET rgrpord = rgrpord+1
+		WHERE rgrpno = #{rgrpno} AND rgrpord >= #{rgrpord}
+	</update>
+	
+	
+	<!-- 댓글 삭제 업데이트 -->
+	<update id="updateDeleteReply">
+		UPDATE tbl_reply
+		SET rgrpord = rgrpord-1
+		WHERE rgrpno = #{rgrpno} AND rgrpord > #{rgrpord}
+	</update>
+	
+	<!-- 댓글 목록 -->
+	<select id="listReply" resultType="com.ybh.springProject.model.dto.ReplyVO">
+		<include refid="pagingHeader"/>
+		SELECT 
+			rno,
+			bno,
+			rgrpno,
+			rprtno,
+			rgrpord,
+			rdepth,
+			replytext,
+			replyer,
+			user_name AS userName,
+			r.regdate,
+			r.updatedate
+		FROM tbl_reply r, tbl_member m
+		WHERE r.replyer = m.user_id AND bno=#{bno} ORDER BY rgrpno, rgrpord 
+		<include refid="pagingFooter"/>
+	</select>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateReply">
+		UPDATE tbl_reply
+		SET replytext = #{replytext}
+		WHERE rno = #{rno}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply">
+		DELETE FROM tbl_reply
+		WHERE rno = #{rno}
+	</delete>
+	
+	<!-- 댓글의 댓글 갯수 -->
+	<select id="reReplyCount" resultType="int">
+		SELECT COUNT(*) FROM tbl_reply 
+		WHERE rprtno = #{rprtno}; 
+	</select>
+	
+	<!-- 댓글 갯수(페이징처리) -->
+	<select id="countReply" resultType="int">
+		SELECT COUNT(*) FROM tbl_reply 
+		WHERE bno=#{bno}
+	</select>
+	
+	<!-- 페이징 sql -->
+	<sql id="pagingHeader">
+		SELECT * FROM(
+    		SELECT @ROWNUM:=@ROWNUM+1 AS ROWNUM, A.* FROM(
+	</sql>
+	<sql id="pagingFooter">
+			) A, (SELECT @ROWNUM:=0) tmp
+		) B WHERE ROWNUM BETWEEN #{start} AND #{end};
+	</sql>
+	
+</mapper>

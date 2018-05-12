@@ -16,9 +16,15 @@ public interface BoardService {
     // 게시글 삭제
     public void delete(int bno) throws Exception;
     // 게시글 전체 목록
-    public List<BoardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception;
+    public List<BoardVO> listAll(int start, int end, String searchOption, String keyword, int bgroup) throws Exception;
     // 게시글 조회
     public void increaseViewcnt(int bno, HttpSession session) throws Exception;
     // 게시글 레코드 갯수 메서드 추가
-    public int countArticle(String searchOption, String keyword) throws Exception;
+    public int countArticle(String searchOption, String keyword, int bgroup) throws Exception;
+    // 강의 게시글 레코드 갯수 메서드 추가
+    public int lectureCountArticle(int bgroup) throws Exception;
+    // 강의 게시글 전체 목록
+  	public List<BoardVO> lectureListAll(int start, int end, int bgroup) throws Exception;
+    // 이미지 업로드
+    public String imageUpload(String uploadPath, String originalName, byte[] fileDate) throws Exception;
 }

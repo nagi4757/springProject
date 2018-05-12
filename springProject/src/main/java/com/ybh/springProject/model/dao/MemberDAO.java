@@ -10,7 +10,7 @@ public interface MemberDAO {
 	// 회원 로그인 체크
     public boolean loginCheck(MemberVO vo);
     // 회원 로그인 정보
-    public MemberVO viewMember(MemberVO vo);
+    public MemberVO loginMember(MemberVO vo);
     // 회원 로그아웃
     public void logout(HttpSession session);
 	// 회원 목록 

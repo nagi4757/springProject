@@ -25,9 +25,9 @@
 	<!-- 회원 등록 -->
 	<insert id="insertMember">
 		INSERT INTO tbl_member
-			(user_id, user_pw, user_name, user_email)
+			(user_no, user_id, user_pw, user_name, user_email)
 		VALUES 
-			(#{userId}, #{userPw}, #{userName}, #{userEmail})	
+			(NULL, #{userId}, #{userPw}, #{userName}, #{userEmail})	
 	</insert>
 	
 	<!-- 회원정보 상세조회 -->
@@ -37,6 +37,18 @@
 		  user_name AS userName,
 		  user_email AS userEmail,
 		  user_regdate AS userRegdate
+		FROM tbl_member
+		WHERE user_id = #{userId}
+	</select>
+	
+	<!-- 로그인 회원 -->
+	<select id="loginMember" resultType="com.ybh.springProject.model.dto.MemberVO">
+		SELECT 
+		  user_id AS userId, 
+		  user_name AS userName,
+		  user_email AS userEmail,
+		  user_regdate AS userRegdate,
+		  user_is_admin AS userIsAdmin
 		FROM tbl_member
 		WHERE user_id = #{userId} AND user_pw = #{userPw}
 	</select>
