@@ -7,7 +7,10 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<!-- 스프링의 환경설정 파일인 root-context.xml을 가장 먼저 참조한다-->
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/root-context.xml
+			/WEB-INF/spring/spring-security.xml
+		</param-value>
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->

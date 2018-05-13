@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ybh.springProject.model.dao.MemberDAOImpl;
@@ -17,16 +18,25 @@ public class MemberServiceImpl implements MemberService {
 	// MemberDAOImpl 객체를 스프링에서 생성하여 주입시킴
 	@Inject MemberDAOImpl memberDao;
 	
+	@Inject PasswordEncoder passwordEncoder;
+	
 	// 회원 로그인 체크
 	@Override
     public boolean loginCheck(MemberVO vo, HttpSession session) {
         boolean result = memberDao.loginCheck(vo);
+        
         if (result) { // true일 경우 세션에 등록
-            MemberVO vo2 = loginMember(vo);
-            // 세션 변수 등록
-            session.setAttribute("userId", vo2.getUserId());
-            session.setAttribute("userName", vo2.getUserName());
-            session.setAttribute("userIsAdmin", vo2.getUserIsAdmin());
+        	
+        	MemberVO vo2 = loginMember(vo);
+            
+            if(passwordEncoder.matches(vo.getUserPw(),vo2.getUserPw())){
+            	// 세션 변수 등록
+                session.setAttribute("userId", vo2.getUserId());
+                session.setAttribute("userName", vo2.getUserName());
+                session.setAttribute("userIsAdmin", vo2.getUserIsAdmin());
+            }else{
+            	result = false;
+            }
         } 
         return result;
     }
@@ -55,6 +65,8 @@ public class MemberServiceImpl implements MemberService {
 	// 회원 등록
 	@Override
 	public void insertMember(MemberVO vo) {
+		String encPassword = passwordEncoder.encode(vo.getUserPw());
+		vo.setUserPw(encPassword);
 		memberDao.insertMember(vo);
 	}
 	

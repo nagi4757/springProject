@@ -89,7 +89,7 @@ public class MemberController {
 		// /member/list.do : 루트 디렉토리를 기준
 		// member/list.do : 현재 디렉토리를 기준
 		// member_list.jsp로 리다이렉트
-		return "redirect:/member/list.do";
+		return "redirect:/";
 	}
 	
 	// 회원 상세정보 조회
