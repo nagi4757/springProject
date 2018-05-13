@@ -37,12 +37,10 @@
             writer,
             b.regdate, 
             viewcnt,
-            user_name AS userName,
             <!-- 댓글숫자표시 -->
             (SELECT COUNT(*) FROM tbl_reply WHERE bno=b.bno) AS recnt
 		FROM 
-            tbl_board b, 
-            tbl_member m
+            tbl_board b
         WHERE
         	b.bgroup = #{bgroup}
         ORDER BY 
