@@ -79,4 +79,20 @@
 		FROM tbl_member
 		WHERE user_id = #{userId} AND user_pw = #{userPw}
 	</select>
+	
+	<!-- 아이디 체크 -->
+	<select id="checkId" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM tbl_member
+        WHERE user_id = #{id}
+	</select>
+	
+	<!-- 닉네임 체크 -->
+	<select id="checkName" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM tbl_member
+        WHERE user_name = #{name}
+	</select>
 </mapper>

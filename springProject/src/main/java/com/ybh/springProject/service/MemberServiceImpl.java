@@ -93,4 +93,17 @@ public class MemberServiceImpl implements MemberService {
 	public boolean checkPw(String userId, String userPw) {
 		return memberDao.checkPw(userId, userPw);
 	}
+
+	// 아이디 체크
+	@Override
+	public boolean CheckId(String id) {
+		return memberDao.checkId(id);
+	}
+
+	// 비밀번호 체크
+	@Override
+	public boolean CheckName(String name) {
+		return memberDao.checkName(name);
+	}
+	
 }

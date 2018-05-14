@@ -33,34 +33,39 @@
 	<body>
 		<%@ include file="../include/menu.jsp" %>
 		<div class="container">
-			<br />
-			<h2>로그인</h2>
-		    <form name="form1" method="post">
-		        <table border="1" width="400px">
-		            <tr>
-		                <td>아이디</td>
-		                <td><input name="userId" id="userId"></td>
-		            </tr>
-		            <tr>
-		                <td>비밀번호</td>
-		                <td><input type="password" name="userPw" id="userPw"></td>
-		            </tr>
-		            <tr>
-		                <td colspan="2" align="center">
-		                    <button type="button" id="btnLogin">로그인</button>
-			                <c:if test="${msg == 'failure'}">
-			                    <div style="color: red">
-			                    	아이디 또는 비밀번호가 일치하지 않습니다.
-			                    </div>
-			                </c:if>
-			                <c:if test="${msg == 'logout'}">
-			                    <div style="color: red">
-			                    	로그아웃되었습니다.
-			                    </div>
-			                </c:if>
-		                </td>
-		            </tr>
-		        </table>
+			<form name="form1" method="post">
+				<div class="modal-dialog modal-lg" role="document">
+	          		<div class="modal-content">
+	            		<div class="modal-header">
+	              			<h5 class="modal-title" id="exampleModalLongTitle">Login</h5>
+	            		</div>
+	            		<div class="modal-body">
+	              			<div class="form-group">
+	                			<label for="ID">아이디</label>
+	                 			<input type="text" class="form-control form-control-lg rounded-0" name="userId" id="userId">
+	              			</div>
+	              			<div class="form-group">
+	                			<label>비밀번호</label>
+	                			<input type="password" class="form-control form-control-lg rounded-0" id="userPw" name="userPw" autocomplete="new-password">
+	              			</div>
+	              			<label style="color:red">
+	              				<c:if test="${msg == 'failure'}">
+				                    <div style="color: red">
+				                    	아이디 또는 비밀번호가 일치하지 않습니다.
+				                    </div>
+				                </c:if>
+				                <c:if test="${msg == 'logout'}">
+				                    <div style="color: red">
+				                    	로그아웃되었습니다.
+				                    </div>
+				                </c:if>
+				           	</label>
+	            		</div>
+	            		<div class="modal-footer">
+	              			<button type="button" class="btn btn-secondary" id="btnLogin">로그인</button>
+	            		</div>
+					</div>
+	         	</div>    
 		    </form>
 	    </div>
 	    <br />

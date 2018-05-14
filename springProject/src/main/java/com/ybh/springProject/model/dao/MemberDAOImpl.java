@@ -72,4 +72,22 @@ public class MemberDAOImpl implements MemberDAO {
 		if(count == 1) result= true;
 		return result;
 	}
+	
+	// 회원 아이디 체크
+	@Override
+	public boolean checkId(String id) {
+		boolean result = false;
+		int count = sqlSession.selectOne("member.checkId", id);
+		if(count == 1) result= true;
+		return result;
+	}
+	
+	// 회원 닉네임 체크
+	@Override
+	public boolean checkName(String name) {
+		boolean result = false;
+		int count = sqlSession.selectOne("member.checkName", name);
+		if(count == 1) result= true;
+		return result;
+	}
 }

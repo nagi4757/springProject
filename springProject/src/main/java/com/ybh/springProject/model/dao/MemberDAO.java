@@ -25,4 +25,8 @@ public interface MemberDAO {
 	public void updateMember(MemberVO vo);
 	// 비밀번호 체크
 	public boolean checkPw(String userId, String userPw);
+	// 아이디 체크
+	public boolean checkId(String id);
+	// 닉네임 체크
+	public boolean checkName(String name);
 }

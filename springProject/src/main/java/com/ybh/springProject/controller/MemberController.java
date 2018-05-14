@@ -1,5 +1,6 @@
 package com.ybh.springProject.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,8 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ybh.springProject.model.dto.MemberVO;
@@ -92,6 +95,35 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	// 회원 아이디 체크
+	@RequestMapping("CheckId.do")
+	public @ResponseBody String memberCheckId(@RequestBody String id){
+		boolean result = memberService.CheckId(id);
+		
+		if(result) {
+			return "failure";
+		}else {
+			return "success";
+		}
+	}
+	
+	// 회원 닉네임 체크
+	@ResponseBody
+	@RequestMapping("CheckName.do")
+	public HashMap<String, Object> memberCheckName(@RequestBody String name){
+		boolean result = memberService.CheckName(name);
+		
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+	    
+		if(result) {
+			hashmap.put("result", "failure");
+		}else {
+			hashmap.put("result", "success");
+		}
+		
+		return hashmap;
+	}
+	
 	// 회원 상세정보 조회
 	@RequestMapping("view.do")
 	public String memberView(@RequestParam String userId, Model model){
@@ -102,6 +134,7 @@ public class MemberController {
 		// member_view.jsp로 포워드
 		return "member/member_view";
 	}
+	
 	// 회원 정보 수정 처리
 	@RequestMapping("update.do")
 	public String memberUpdate(@ModelAttribute MemberVO vo, Model model){
