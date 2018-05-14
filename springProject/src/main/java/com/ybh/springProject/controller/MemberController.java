@@ -1,6 +1,5 @@
 package com.ybh.springProject.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,13 +7,14 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ybh.springProject.model.dto.MemberVO;
@@ -96,32 +96,28 @@ public class MemberController {
 	}
 	
 	// 회원 아이디 체크
-	@RequestMapping("CheckId.do")
-	public @ResponseBody String memberCheckId(@RequestBody String id){
+	@RequestMapping(value="checkId.do", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
+	public ResponseEntity<String> memberCheckId(@RequestParam String id)throws Exception {
 		boolean result = memberService.CheckId(id);
 		
 		if(result) {
-			return "failure";
+			return new ResponseEntity<String>("failure", HttpStatus.OK);
 		}else {
-			return "success";
+			return new ResponseEntity<String>("success", HttpStatus.OK);
 		}
 	}
 	
 	// 회원 닉네임 체크
-	@ResponseBody
-	@RequestMapping("CheckName.do")
-	public HashMap<String, Object> memberCheckName(@RequestBody String name){
+	@RequestMapping(value="checkName.do", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
+	public ResponseEntity<String> memberCheckName(@RequestParam String name)throws Exception { 
 		boolean result = memberService.CheckName(name);
-		
-		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-	    
+	
 		if(result) {
-			hashmap.put("result", "failure");
+			return new ResponseEntity<String>("failure", HttpStatus.OK);
 		}else {
-			hashmap.put("result", "success");
+			return new ResponseEntity<String>("success", HttpStatus.OK);
 		}
 		
-		return hashmap;
 	}
 	
 	// 회원 상세정보 조회

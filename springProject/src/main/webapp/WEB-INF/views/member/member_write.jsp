@@ -12,21 +12,23 @@
 			
 			$("#userName").blur(function(){
 				var name = document.getElementById("userName").value;
-				var sendData = JSON.stringify({name:$('#userName').val()}); 
+				var form_data = new FormData();
+		    	form_data.append('name', name);
 				if(name == ""){
 					document.getElementById("re-nameErr").innerHTML = "필요한 정보입니다.";
 				}else{
 					$.ajax({
 						type : "POST",
-						url : "${path}/member/CheckName.do",
-						data : sendData,
-						dataType: "json",
-						contentType : "application/json;charset=UTF-8",
+						url : "${path}/member/checkName.do",
+						data : form_data,
+						cache: false,
+			            contentType: false,
+			            processData: false,
 						success : function(data) {
-							if(data.result == "success"){
+							if(data == "success"){
 								document.getElementById("re-nameErr").innerHTML = "";
 								reCheck = true;
-							}else if(data.result == "failure"){
+							}else if(data == "failure"){
 								document.getElementById("re-nameErr").innerHTML = "이 닉네임은 사용중입니다.";
 								reCheck = false;
 							}
@@ -45,21 +47,21 @@
 			$("#userId").blur(function(){
 				var id = document.getElementById("userId").value;
 				var RegexId = /^[a-z][a-z0-9_-]{3,11}$/;  
+				var form_data = new FormData();
+		    	form_data.append('id', id);
 				if(id == ""){
 					document.getElementById("re-idErr").innerHTML = "필요한 정보입니다.";
 				}else if(!RegexId.test($.trim($("#userId").val()))){
 					document.getElementById("re-idErr").innerHTML = "4~12자의 영문(소문자)과 숫자만 사용할 수 있습니다.";
 					reCheck = false;
 				}else{
-					data = new FormData();
-					data.append("id", id);
 					$.ajax({
 						type : "POST",
-						url : "${path}/member/CheckId.do",
-						data : data,
-						dataType: "json",
-						contentType : "application/json;charset=UTF-8",
-						async : true,
+						url : "${path}/member/checkId.do",
+						data : form_data,
+						cache: false,
+			            contentType: false,
+			            processData: false,
 						success : function(data) {
 							if(data == "success"){
 								document.getElementById("re-idErr").innerHTML = "";
