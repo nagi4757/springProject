@@ -52,9 +52,16 @@
 	            	</c:when>
 	            	<c:otherwise>
 	            		<li class="nav-item">
-	              			<a class="nav-link" href="${path}/member/list.do">
-	              				<spring:message code="menu.number6"/>
-	              			</a>
+	            			<c:if test="${sessionScope.userIsAdmin == 'Y'}">
+	              				<a class="nav-link" href="${path}/member/list.do">
+	              					<spring:message code="menu.number6"/>
+	              				</a>
+	              			</c:if>
+	              			<c:if test="${sessionScope.userIsAdmin == 'N'}">
+	              				<a class="nav-link" href="${path}">
+	              					<spring:message code="menu.number6"/>
+	              				</a>
+	              			</c:if>
 	            		</li>
 	            		<li class="nav-item">
 	              			<a class="nav-link" href="${path}/member/logout.do">

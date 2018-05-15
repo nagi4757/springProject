@@ -3,8 +3,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>관리자 | 게시판 등록</title>
+		<title>나기의 세상 - Nagi's World</title>
 		
+		<%@ include file="../include/adminCheck.jsp" %>
 		<%@ include file="../include/header.jsp" %>
 		
 		<script>

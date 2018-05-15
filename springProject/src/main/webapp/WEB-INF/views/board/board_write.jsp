@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>게시글 작성</title>
+		<title>나기의 세상 - Nagi's World</title>
 		
 		<!-- jstl 코어 태그 -->
 		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

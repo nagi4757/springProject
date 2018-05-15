@@ -17,7 +17,6 @@
 <!-- Custom styles for this template -->
 <link href="<c:url value="/resources/css/modern-business.css" />" rel="stylesheet">
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script>

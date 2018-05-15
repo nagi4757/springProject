@@ -46,12 +46,13 @@ public class LectureController {
         
         // 게시판의 첫번째 이미지만 경로 추출하기
         Pattern imgPattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
-        Matcher matcher;
+        Matcher imgMatcher;
         
 		for(int i=0;i<list.size();i++){
-			matcher = imgPattern.matcher(list.get(i).getContent());		
-			if(matcher.find()){
-				list.get(i).setFirstImageSrc(matcher.group(1));
+			imgMatcher = imgPattern.matcher(list.get(i).getContent());	
+			
+			if(imgMatcher.find()){
+				list.get(i).setFirstImageSrc(imgMatcher.group(1));
 			}else{
 				list.get(i).setFirstImageSrc("http://placehold.it/700x400");
 			}

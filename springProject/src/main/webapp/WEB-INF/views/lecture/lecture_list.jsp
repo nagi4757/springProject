@@ -4,14 +4,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<%@ include file="../include/header.jsp" %>
-		<title>
-			<c:if test="${map.bgroup == 2}">
-				IT강의실 | Python
-    		</c:if>
-    		<c:if test="${map.bgroup == 3}">
-    			IT강의실 | UML
-    		</c:if>
-		</title>
+		<title>나기의 세상 - Nagi's World</title>
 	</head>
 	<body>
 		<%@ include file="../include/menu.jsp" %>
@@ -46,11 +39,9 @@
 		          <div class="card h-100">
 		            <a href="${path}/lecture/view.do?bno=${row.bno}"><img class="card-img-top" src="${row.firstImageSrc}" width="700px"></a>
 		            <div class="card-body">
-		              <hr />
 		              <h4 class="card-title">
 		                <a href="#">${row.title}</a>
 		              </h4>
-		              <p class="card-text">aaaaaaaa</p>
 		            </div>
 		          </div>
 		        </div>

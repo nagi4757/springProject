@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>나기의 세상 - Nagi's World</title>
 		<%@ include file="../include/header.jsp" %>
 		<script>
 			$(document).ready(function(){

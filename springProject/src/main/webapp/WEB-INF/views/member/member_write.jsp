@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>회원등록 페이지</title>
+		<title>나기의 세상 - Nagi's World</title>
 		<%@ include file="../include/header.jsp" %>
 		<script type="text/javascript">
 		var reCheck = true;
