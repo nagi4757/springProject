@@ -37,7 +37,7 @@
 	      	<c:forEach var="row" items="${map.list}">
 		        <div class="col-lg-6 portfolio-item">
 		          <div class="card h-100">
-		            <a href="${path}/lecture/view.do?bno=${row.bno}"><img class="card-img-top" src="${row.firstImageSrc}" width="700px"></a>
+		            <a href="${path}/lecture/view.do?bno=${row.bno}"><img class="card-img-top" src="${row.firstImageSrc}" width="700px" height="400px"></a>
 		            <div class="card-body">
 		              <h4 class="card-title">
 		                <a href="#">${row.title}</a>
