@@ -86,4 +86,13 @@ public class BoardDAOImpl implements BoardDAO {
 	public int lectureCountArticle(int bgroup) throws Exception {
 		return SqlSession.selectOne("board.lectureCountArticle", bgroup);
 	}
+	
+	// 메인 게시글 출력
+	@Override
+	public List<BoardVO> mainListAll(int bgroupStart, int bgroupEnd) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bgroupStart", bgroupStart);
+		map.put("bgroupEnd", bgroupEnd);
+		return SqlSession.selectList("board.mainListAll", map);
+	}
 }

@@ -49,6 +49,27 @@
 		<include refid="pagingFooter"></include>  
 	</select>
 	
+	<!-- 메인 게시글 -->
+	<select id="mainListAll" resultType="com.ybh.springProject.model.dto.BoardVO">
+		SELECT
+			bno, 
+			title, 
+			content, 
+            writer,
+            b.regdate, 
+            viewcnt,
+            <!-- 댓글숫자표시 -->
+            (SELECT COUNT(*) FROM tbl_reply WHERE bno=b.bno) AS recnt
+		FROM 
+            tbl_board b
+        WHERE
+        	b.bgroup >= #{bgroupStart} AND #{bgroupEnd} > b.bgroup
+		ORDER BY 
+            bno desc, 
+            regdate desc
+        LIMIT 3
+	</select>
+	
 	<!-- 게시글 레코드 갯수 -->
 	<select id="countArticle" resultType="int">
 		SELECT COUNT(*) FROM tbl_board b, 

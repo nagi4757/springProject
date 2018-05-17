@@ -59,77 +59,49 @@
     		</h1>
     		
     		<!-- Portfolio Section -->
-      		<h2>자유게시판</h2>
+    		<c:if test="${freeBoardList.size() > 0}">
+      			<h2>자유게시판</h2>
+      		</c:if>
 
       		<!-- Marketing Icons Section -->
       		<div class="row">
-        		<div class="col-lg-4 col-sm-6 portfolio-item">
-          			<div class="card h-100">
-            			<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            			<div class="card-body">
-              				<h5 class="card-title">
-                				<a href="#">Project One</a>
-              				</h5>
-            			</div>
-          			</div>
-        		</div>
-	        	<div class="col-lg-4 col-sm-6 portfolio-item">
-	          		<div class="card h-100">
-	            		<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-	            		<div class="card-body">
-	              			<h5 class="card-title">
-	                			<a href="#">Project Two</a>
-	              			</h5>
-	            		</div>
-	          		</div>
-	        	</div>
-	        	<div class="col-lg-4 col-sm-6 portfolio-item">
-	          		<div class="card h-100">
-	            		<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-	            		<div class="card-body">
-	              			<h5 class="card-title">
-	                			<a href="#">Project Three</a>
-	              			</h5>
-	            		</div>
-	          		</div>
-	        	</div>
+      			<c:forEach var="row" items="${freeBoardList}">
+      				<div class="col-lg-4 col-sm-6 portfolio-item">
+	          			<div class="card h-100">
+	          				<a href="${path}/board/view.do?bno=${row.bno}">
+	            				<img class="card-img-top" src="${row.firstImageSrc}" alt="" width="700px" height="250px">
+	            			</a>
+	            			<div class="card-body">
+	              				<h5 class="card-title">
+	              					<a href="${path}/board/view.do?bno=${row.bno}">${row.title}</a>
+	              				</h5>
+	            			</div>
+	          			</div>
+        			</div>
+      			</c:forEach>
       		</div>
       		<!-- /.row -->
 
       		<!-- Portfolio Section -->
-      		<h2>강의 게시판</h2>
-
+      		<c:if test="${LectureBoardList.size() > 0}">
+      			<h2>강의 게시판</h2>
+      		</c:if>
+      		
       		<div class="row">
-        		<div class="col-lg-4 col-sm-6 portfolio-item">
-          			<div class="card h-100">
-            			<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            			<div class="card-body">
-              				<h5 class="card-title">
-                				<a href="#">Project One</a>
-              				</h5>
-            			</div>
-          			</div>
-        		</div>
-	        	<div class="col-lg-4 col-sm-6 portfolio-item">
-	          		<div class="card h-100">
-	            		<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-	            		<div class="card-body">
-	              			<h5 class="card-title">
-	                			<a href="#">Project Two</a>
-	              			</h5>
-	            		</div>
-	          		</div>
-	        	</div>
-	        	<div class="col-lg-4 col-sm-6 portfolio-item">
-	          		<div class="card h-100">
-	            		<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-	            		<div class="card-body">
-	              			<h5 class="card-title">
-	                			<a href="#">Project Three</a>
-	              			</h5>
-	            		</div>
-	          		</div>
-	        	</div>
+      			<c:forEach var="row" items="${LectureBoardList}">
+	        		<div class="col-lg-4 col-sm-6 portfolio-item">
+	          			<div class="card h-100">
+	            			<a href="${path}/lecture/view.do?bno=${row.bno}">
+	            				<img class="card-img-top" src="${row.firstImageSrc}" alt="" width="700px" height="250px">
+	            			</a>
+	            			<div class="card-body">
+	              				<h5 class="card-title">
+	                				<a href="${path}/lecture/view.do?bno=${row.bno}">${row.title}</a>
+	              				</h5>
+	            			</div>
+	          			</div>
+	        		</div>
+        		</c:forEach>
       		</div>
       		<!-- /.row -->
 
@@ -142,7 +114,7 @@
           				Front-end Web / dbsqhd4757@naver.com<br/>
           				<a class="fa fa-github-square" style="font-size:50px" href="https://github.com/nagi4757" target="_blank"></a>
           				<a class="fa fa-facebook-square" style="font-size:50px" href="" target="_blank"></a>
-          				<a class="fa fa-twitter-square" style="font-size:50px" href="" target="_blank"></a>
+          				<a class="fa fa-twitter-square" style="font-size:50px" href="https://twitter.com/dbsqhd4757" target="_blank"></a>
           			</p>
           			
           			<h4><strong>Educations</strong></h4>
@@ -235,6 +207,7 @@
         			</p>
         			
         			<h4><strong>후원회사</strong></h4>
+        			<a href="http://seagile.co.jp/" target="_blank"><img class="img-fluid rounded" src="/resources/images/KakaoTalk_20180515_180413991.jpg" width="300px" height="400px"></a>
         		</div>
       		</div>
       		<!-- /.row -->

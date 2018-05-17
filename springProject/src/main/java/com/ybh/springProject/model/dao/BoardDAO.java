@@ -23,4 +23,6 @@ public interface BoardDAO {
     public int countArticle(String searchOption, String keyword, int bgroup) throws Exception;
     // 강의 게시글 레코드 갯수 메서드 추가
     public int lectureCountArticle(int bgroup) throws Exception;
+    // 메인 게시글 출력
+    public List<BoardVO> mainListAll(int bgroupStart, int bgroupEnd) throws Exception;
 }

@@ -120,5 +120,11 @@ public class BoardServiceImpl implements BoardService {
 		return uploadedFileName;
 		
 	}
+
+	// 메인 게시글 출력
+	@Override
+	public List<BoardVO> mainListAll(int bgroupStart, int bgroupEnd) throws Exception {
+		return boardDao.mainListAll(bgroupStart, bgroupEnd);
+	}
 	
 }

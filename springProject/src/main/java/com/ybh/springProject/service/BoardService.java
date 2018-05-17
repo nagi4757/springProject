@@ -27,4 +27,6 @@ public interface BoardService {
   	public List<BoardVO> lectureListAll(int start, int end, int bgroup) throws Exception;
     // 이미지 업로드
     public String imageUpload(String uploadPath, String originalName, byte[] fileDate) throws Exception;
+    // 메인 게시글 출력
+    public List<BoardVO> mainListAll(int bgroupStart, int bgroupEnd) throws Exception;
 }
