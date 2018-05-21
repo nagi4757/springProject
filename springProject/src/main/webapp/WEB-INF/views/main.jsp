@@ -20,24 +20,24 @@
         		</ol>
         		<div class="carousel-inner" role="listbox">
           			<!-- Slide One - Set the background image for this slide in the line below -->
-          			<div class="carousel-item active" style="background-image: url('http://placehold.it/1900x1080')">
+          			<div class="carousel-item active" style="background-image: url('/resources/images/pexels-photo-374074.jpeg')">
             			<div class="carousel-caption d-none d-md-block">
-              				<h3>First Slide</h3>
-              				<p>This is a description for the first slide.</p>
+              				<h3>자유게시판</h3>
+              				<p>자유롭게 IT정보를 공유합시다.</p>
             			</div>
           			</div>
           			<!-- Slide Two - Set the background image for this slide in the line below -->
-          			<div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+          			<div class="carousel-item" style="background-image: url('/resources/images/pexels-photo-248515.png')">
             			<div class="carousel-caption d-none d-md-block">
-              				<h3>Second Slide</h3>
-              				<p>This is a description for the second slide.</p>
+              				<h3>IT강의실</h3>
+              				<p>주인장이 IT지식을 공유합니다.</p>
             			</div>
           			</div>
           			<!-- Slide Three - Set the background image for this slide in the line below -->
-          			<div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+          			<div class="carousel-item" style="background-image: url('/resources/images/pexels-photo-839465.jpeg')">
             			<div class="carousel-caption d-none d-md-block">
-              				<h3>Third Slide</h3>
-              				<p>This is a description for the third slide.</p>
+              				<h3>한국어/일본어</h3>
+              				<p>이 홈페이지는 한국인과 일본인이 자유롭게 사용할 수 있도록 제작되어있습니다.</p>
             			</div>
           			</div>
         		</div>
@@ -121,7 +121,7 @@
           			<ul>
             			<li>
               				<strong>한남대학교</strong>
-              				<br />- 컴퓨터공학과 전공 / 2011. 02(입학) ~ 2017. 02(졸업)
+              				<br />- 컴퓨터공학과 전공 / 2017. 02(졸업)
               				<br />- C, JAVA, PHP, DB(Mysql), Android, Linux
             			</li>
             			<li>
@@ -132,14 +132,6 @@
           			</ul>
           			<h4><strong>Experiences</strong></h4>
           			<ul>
-            			<li>
-              				<strong>대한민국해병대</strong>
-              				<br />- 1157기 정보통신병 / 2012. 01 ~ 2013. 10
-            			</li>
-            			<li>
-              				<strong>아르바이트</strong>
-              				<br />- CU편의점, 파리바게트 / 2013. 11 ~ 2014. 02
-            			</li>
             			<li>
             				<strong>프로그래머 (일본)</strong>
             				<br />- 사원관리, 근무표 제작(Spring + Structs) / 2017. 07 ~ 2017. 09
@@ -205,9 +197,6 @@
         				이 홈페이지를 만들게 된 계기는 개인적인 개발공부와 한국과 일본 개발자 사람들과 자유롭게 IT정보를 주고 받기 위해서 만들게 되었습니다.<br><br>
         				제가 비록 IT지식이 많이 부족하지만, 잘 부탁드립니다.<br><br>
         			</p>
-        			
-        			<h4><strong>후원회사</strong></h4>
-        			<a href="http://seagile.co.jp/" target="_blank"><img class="img-fluid rounded" src="/resources/images/KakaoTalk_20180515_180413991.jpg" width="300px" height="400px"></a>
         		</div>
       		</div>
       		<!-- /.row -->

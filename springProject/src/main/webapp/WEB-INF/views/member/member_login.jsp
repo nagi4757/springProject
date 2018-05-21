@@ -18,7 +18,7 @@
 		                return; // 함수 종료
 		            }
 		            if(userPw == ""){
-		                alert("아이디를 입력하세요.");
+		                alert("비밀번호를 입력하세요.");
 		                $("#userPw").focus();
 		                return;
 		            }
