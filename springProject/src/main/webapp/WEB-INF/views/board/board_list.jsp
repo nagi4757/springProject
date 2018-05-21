@@ -3,8 +3,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>나기의 세상 - Nagi's World</title>
-	
+		<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+		<title><spring:message code="title.number1"/> - Nagi's World</title>
 		<%@ include file="../include/header.jsp" %>
 	
 		<script>
@@ -30,7 +30,7 @@
 				    <form name="form1" method="post" action="${path}/board/list.do">
 				        <select name="searchOption">
 				            <!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
-				            <option value="all" <c:out value="${map.searchOption == 'all'?'selected':''}"/> >제목+이름+제목</option>
+				            <option value="all" <c:out value="${map.searchOption == 'all'?'selected':''}"/> >제목+내용+이름</option>
 				            <option value="writer" <c:out value="${map.searchOption == 'writer'?'selected':''}"/> >이름</option>
 				            <option value="content" <c:out value="${map.searchOption == 'content'?'selected':''}"/> >내용</option>
 				            <option value="title" <c:out value="${map.searchOption == 'title'?'selected':''}"/> >제목</option>
