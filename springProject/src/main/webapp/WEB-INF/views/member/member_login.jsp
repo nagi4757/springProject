@@ -47,7 +47,7 @@
 	              			</div>
 	              			<div class="form-group">
 	                			<label><spring:message code="login.number2"/></label>
-	                			<input type="password" class="form-control form-control-lg rounded-0" id="userPw" name="userPw" autocomplete="new-password">
+	                			<input type="password" class="form-control form-control-lg rounded-0" id="userPw" name="userPw">
 	              			</div>
 	              			<label style="color:red">
 	              				<c:if test="${msg == 'failure'}">
