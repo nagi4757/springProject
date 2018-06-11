@@ -11,6 +11,8 @@ public class MemberVO {
 	private Date userRegdate; // java.sql.Date
 	private Date userUpdatedate;
 	private String userIsAdmin;
+	private String userEmailAuthKey;
+	private String userIsEmailAuth;
 	
 	// Getter/Setter
 	public int getUserNo() {
@@ -76,13 +78,30 @@ public class MemberVO {
 	public void setUserIsAdmin(String userIsAdmin) {
 		this.userIsAdmin = userIsAdmin;
 	}
+	
+	public String getUserEmailAuthKey() {
+		return userEmailAuthKey;
+	}
+
+	public void setUserEmailAuthKey(String userEmailAuthKey) {
+		this.userEmailAuthKey = userEmailAuthKey;
+	}
+
+	public String getUserIsEmailAuth() {
+		return userIsEmailAuth;
+	}
+
+	public void setUserIsEmailAuth(String userIsEmailAuth) {
+		this.userIsEmailAuth = userIsEmailAuth;
+	}
 
 	// toString()
 	@Override
 	public String toString() {
 		return "MemberVO [userNo=" + userNo + ", userId=" + userId + ", userPw=" + userPw + ", userName=" + userName
 				+ ", userEmail=" + userEmail + ", userRegdate=" + userRegdate + ", userUpdatedate=" + userUpdatedate
-				+ ", userIsAdmin=" + userIsAdmin + "]";
+				+ ", userIsAdmin=" + userIsAdmin + ", userEmailAuthKey=" + userEmailAuthKey + ", userIsEmailAuth="
+				+ userIsEmailAuth + "]";
 	}
 	
 }

@@ -3,7 +3,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>나기의 세상 - Nagi's World</title>
+		<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+		<title><spring:message code="title.number1"/> - Nagi's World</title>
 		
 		<!-- jstl 코어 태그 -->
 		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -34,12 +35,12 @@
 		            var content = $("#content").val();
 		            //var writer = $("#writer").val();
 		            if(title == ""){
-		                alert("제목을 입력하세요");
+		                alert("<spring:message code="boardWrite.alert1"/>");
 		                document.form1.title.focus();
 		                return;
 		            }
 		            if(content == ""){
-		                alert("내용을 입력하세요");
+		                alert("<spring:message code="boardWrite.alert2"/>");
 		                document.form1.content.focus();
 		                return;
 		            }
@@ -90,23 +91,23 @@
 	</head>
 	<body>
 		<div class="container">
-			<h2>게시글 작성</h2>
+			<h2><spring:message code="boardWrite.number1"/></h2>
 			<form name="form1" method="post" action="${path}/board/insert.do">
 			    <div>
-			    	제목 : <input name="title" id="title" size="80" placeholder="제목을 입력해주세요">
+			    	<spring:message code="boardWrite.number2"/> <input name="title" id="title" size="80" placeholder="<spring:message code="boardWrite.number3"/>">
 			    </div>
 			    <br />
 			    <div>
-			    	<textarea name="content" id="summernote" rows="4" cols="80" placeholder="내용을 입력해주세요"></textarea>
+			    	<textarea name="content" id="summernote" rows="4" cols="80" placeholder="<spring:message code="boardWrite.number4"/>"></textarea>
 			    	<input type="hidden" name="bgroup" value="${bgroup}">
 			    </div>
 			    <!-- <div>
-			    	이름 <input name="writer" id="writer" placeholder="이름을 입력해주세요">
+			    	이름 <input name="writer" id="writer" placeholder="이름을 입력해주세요.">
 			    </div> -->
 			    
 			    <div style="text-align: center;">
-			        <button type="button" id="btnSave">확인</button>
-			        <button type="button" onclick="javascript_:history.go(-1);">취소</button>
+			        <button type="button" id="btnSave"><spring:message code="boardWrite.number5"/></button>
+			        <button type="button" onclick="javascript_:history.go(-1);"><spring:message code="boardWrite.number6"/></button>
 			    </div>
 			</form>
 		</div>

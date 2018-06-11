@@ -90,4 +90,39 @@ public class MemberDAOImpl implements MemberDAO {
 		if(count == 1) result= true;
 		return result;
 	}
+	
+	// 이메일 체크
+	@Override
+	public boolean checkEmail(String email) {
+		boolean result = false;
+		int count = sqlSession.selectOne("member.checkEmail", email);
+		if(count == 1) result= true;
+		return result;
+	}
+	
+	// 이메일 인증키 검증
+	@Override
+	public boolean checkEmailAuth(String id) {
+		boolean result = false;
+		int count = sqlSession.selectOne("member.checkEmailAuth", id);
+		if(count == 1) result= true;
+		return result;
+	}
+	
+	// 이메일 인증확인
+	@Override
+	public boolean emailConfirm(String userId, String emailAuthKey) {
+		boolean result = false;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("emailAuthKey", emailAuthKey);
+		
+		int count = sqlSession.selectOne("member.emailConfirm", map);
+		
+		if(count == 1) result= true;
+		if(result) sqlSession.update("member.updateEmailAuth", map);
+		
+		return result;
+	}
 }

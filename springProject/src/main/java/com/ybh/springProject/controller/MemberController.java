@@ -31,20 +31,26 @@ public class MemberController {
 	
 	// 로그인 화면
 	@RequestMapping("login.do")
-    public String login(){
+    public String login() throws Exception{
         return "member/member_login";    // views/member/login.jsp로 포워드
     }
 	
 	// 로그인 처리
 	@RequestMapping("loginCheck.do")
-    public ModelAndView loginCheck(@ModelAttribute MemberVO vo, HttpSession session){
-        boolean result = memberService.loginCheck(vo, session);
+    public ModelAndView loginCheck(@ModelAttribute MemberVO vo, 
+    		HttpSession session) throws Exception{
+        String result = memberService.loginCheck(vo, session);
+        
         ModelAndView mav = new ModelAndView();
-        if (result == true) { // 로그인 성공
+        if (result.equals("loginTure")) { // 로그인 성공
             // main.jsp로 이동
             mav.setViewName("redirect:/");
-        } else {    // 로그인 실패
-            // login.jsp로 이동
+        }else if(result.equals("EmailAuthFailure")){ // 이메일 인증 실패    
+        	// login.jsp로 이동
+            mav.setViewName("member/member_login");
+            mav.addObject("msg", "EmailAuthFailure");
+        }else if(result.equals("loginFailure")){ // 로그인 실패
+        	// login.jsp로 이동
             mav.setViewName("member/member_login");
             mav.addObject("msg", "failure");
         }
@@ -53,7 +59,7 @@ public class MemberController {
 	
 	// 로그아웃 처리
     @RequestMapping("logout.do")
-    public ModelAndView logout(HttpSession session){
+    public ModelAndView logout(HttpSession session) throws Exception{
         memberService.logout(session);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("member/member_login");
@@ -64,7 +70,7 @@ public class MemberController {
 	// 회원 목록
 	// url pattern mapping
 	@RequestMapping("list.do")
-	public String memberList(Model model){
+	public String memberList(Model model) throws Exception{
 	// controller => service => dao 요청
 		List<MemberVO> list = memberService.memberList();
 		model.addAttribute("list", list);
@@ -84,7 +90,7 @@ public class MemberController {
 	// * 폼에서 입력한 데이터를 받아오는 법 3가지 
 	//public String memberInsert(HttpServlet request){
 	//public String memberInsert(String userId, String userPw, String userName, String userEmail){
-	public String memberInsert(@ModelAttribute MemberVO vo){
+	public String memberInsert(@ModelAttribute MemberVO vo) throws Exception{
 		// 테이블에 레코드 입력
 		memberService.insertMember(vo);
 		// * (/)의 유무에 차이
@@ -97,7 +103,7 @@ public class MemberController {
 	// 회원 아이디 체크
 	@RequestMapping(value="checkId.do", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
 	public ResponseEntity<String> memberCheckId(@RequestParam String id)throws Exception {
-		boolean result = memberService.CheckId(id);
+		boolean result = memberService.checkId(id);
 		
 		if(result) {
 			return new ResponseEntity<String>("failure", HttpStatus.OK);
@@ -109,7 +115,7 @@ public class MemberController {
 	// 회원 닉네임 체크
 	@RequestMapping(value="checkName.do", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
 	public ResponseEntity<String> memberCheckName(@RequestParam String name)throws Exception { 
-		boolean result = memberService.CheckName(name);
+		boolean result = memberService.checkName(name);
 	
 		if(result) {
 			return new ResponseEntity<String>("failure", HttpStatus.OK);
@@ -119,9 +125,23 @@ public class MemberController {
 		
 	}
 	
+	// 회원 이메일 체크
+	@RequestMapping(value="checkEmail.do", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
+	public ResponseEntity<String> memberCheckEmail(@RequestParam String email)throws Exception { 
+		boolean result = memberService.checkEmail(email);
+	
+		if(result) {
+			return new ResponseEntity<String>("failure", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		}
+		
+	}
+	
+	
 	// 회원 상세정보 조회
 	@RequestMapping("view.do")
-	public String memberView(@RequestParam String userId, Model model){
+	public String memberView(@RequestParam String userId, Model model) throws Exception{
 		// 회원 정보를 model에 저장
 		model.addAttribute("dto", memberService.viewMember(userId));
 		//System.out.println("클릭한 아이디 확인 : "+userId);
@@ -132,7 +152,7 @@ public class MemberController {
 	
 	// 회원 정보 수정 처리
 	@RequestMapping("update.do")
-	public String memberUpdate(@ModelAttribute MemberVO vo, Model model){
+	public String memberUpdate(@ModelAttribute MemberVO vo, Model model) throws Exception{
 		// 비밀번호 체크
 		boolean result = memberService.checkPw(vo.getUserId(), vo.getUserPw());
 		if(result){ // 비밀번호가 일치하면 수정 처리후, 전체 회원 목록으로 리다이렉트
@@ -152,7 +172,8 @@ public class MemberController {
 	// @RequestMapping : url mapping
 	// @RequestParam : get or post방식으로 전달된 변수값
 	@RequestMapping("delete.do")
-	public String memberDelete(@RequestParam String userId, @RequestParam String userPw, Model model){
+	public String memberDelete(@RequestParam String userId, 
+			@RequestParam String userPw, Model model) throws Exception{
 		// 비밀번호 체크
 		boolean result = memberService.checkPw(userId, userPw);
 		if(result){ // 비밀번호가 맞다면 삭제 처리후, 전체 회원 목록으로 리다이렉트
@@ -163,5 +184,24 @@ public class MemberController {
 			model.addAttribute("dto", memberService.viewMember(userId));
 			return "member/member_view";
 		}
+	}
+	
+	// 이메일 인증
+	@RequestMapping("emailConfirm.do")
+	public ModelAndView memberEmailConfirm(@RequestParam String emailAuthKey, 
+			@RequestParam String userId) throws Exception{
+	
+		ModelAndView mav = new ModelAndView();
+		boolean result = memberService.emailConfirm(userId, emailAuthKey);
+		
+		if(result) {
+			mav.addObject("msg", "EmailAuthSuccess");
+		}else{
+			mav.addObject("msg", "EmailAuthError");
+		}
+		
+		mav.setViewName("member/member_login");
+		
+		return mav;
 	}
 }

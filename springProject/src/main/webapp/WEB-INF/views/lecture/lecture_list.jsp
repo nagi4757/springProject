@@ -3,8 +3,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+		<title><spring:message code="title.number1"/> - Nagi's World</title>
 		<%@ include file="../include/header.jsp" %>
-		<title>나기의 세상 - Nagi's World</title>
 	</head>
 	<body>
 		<%@ include file="../include/menu.jsp" %>
@@ -14,21 +15,21 @@
 	      <!-- Page Heading/Breadcrumbs -->
 	      <h1 class="mt-4 mb-3">
 	      	<c:if test="${map.bgroup == 2}">
-	      		Python
+	      		Spring
 	      	</c:if>
 	      	<c:if test="${map.bgroup == 3}">
-	      		UML
+	      		JavaScript
 	      	</c:if>
-	        <small>강의실</small>
+	        <small><spring:message code="lectureList.number1"/></small>
 	      </h1>
 	
 	      <ol class="breadcrumb">
 	        <li class="breadcrumb-item">
-	          <a href="index.html">Home</a>
+	          <a href="${path}">Home</a>
 	        </li>
 	        <li class="breadcrumb-item active">
-	        	<c:if test="${map.bgroup == 2}">Python</c:if>
-	        	<c:if test="${map.bgroup == 3}">UML</c:if> 강의실
+	        	<c:if test="${map.bgroup == 2}">Spring</c:if>
+	        	<c:if test="${map.bgroup == 3}">JavaScript</c:if> <spring:message code="lectureList.number1"/>
 	        </li>
 	      </ol>
 	

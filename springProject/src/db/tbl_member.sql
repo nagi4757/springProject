@@ -7,5 +7,7 @@ create table tbl_member (
     user_email varchar(32) not null,					-- 이메일
     user_regdate timestamp default now(),				-- 생성날짜  
     user_updatedate timestamp default now(),			-- 업데이트 날짜
-    user_is_admin varchar(1) default 'N'				-- 최고 관리자 확인
+    user_is_admin varchar(1) default 'N', 				-- 최고 관리자 확인
+    user_emailAuthKey varchar(255) not null,            -- 이메일 인증키
+    user_is_emailAuth varchar(1) default 'N'			-- 이메일 인증 확인
 );

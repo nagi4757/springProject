@@ -3,7 +3,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>나기의 세상 - Nagi's World</title>
+		<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+		<title><spring:message code="title.number1"/> - Nagi's World</title>
 		
 		<!-- jstl 코어 태그 -->
 		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -41,12 +42,12 @@
 		            var content = $("#summernote").val();
 		            //var writer = $("#writer").val();
 		            if(title == ""){
-		                alert("제목을 입력하세요");
+		                alert("<spring:message code="boardUpdate.alert1"/>");
 		                document.form1.title.focus();
 		                return;
 		            }
 		            if(content == ""){
-		                alert("내용을 입력하세요");
+		                alert("<spring:message code="boardUpdate.alert2"/>");
 		                document.form1.content.focus();
 		                return;
 		            }
@@ -93,34 +94,34 @@
 	</head>
 	<body>
 		<div class="container">
-			<h2>게시글 수정</h2>
+			<h2><spring:message code="boardUpdate.number1"/></h2>
 			<form name="form1" method="post">
 				<!-- 원하는 날짜형식으로 출력하기 위해 fmt태그 사용 -->
 			    <div>        
-			    	작성일자 : <fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd a HH:mm:ss"/>
+			    	<spring:message code="boardUpdate.number2"/> <fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd a HH:mm:ss"/>
 			        <!-- 날짜 형식 => yyyy 4자리연도, MM 월, dd 일, a 오전/오후, HH 24시간제, hh 12시간제, mm 분, ss 초 -->
 			    </div>
 			    <div>
-			    	조회수 : ${dto.viewcnt}
+			    	<spring:message code="boardUpdate.number3"/> ${dto.viewcnt}
 			    </div>
 			    <div>
-					제목 : <input name="title" id="title" size="80" value="${dto.title}" placeholder="제목을 입력해주세요">
+					<spring:message code="boardUpdate.number4"/> <input name="title" id="title" size="80" value="${dto.title}" placeholder="<spring:message code="boardUpdate.number5"/>">
 			    </div>
 			    <div>
-			    	작성자 : ${dto.userName}
+			    	<spring:message code="boardUpdate.number6"/> ${dto.userName}
 			    </div>
 			    <div>
-			   		<textarea name="content" id="summernote" rows="4" cols="80" placeholder="내용을 입력해주세요">${dto.content}</textarea>
+			   		<textarea name="content" id="summernote" rows="4" cols="80" placeholder="<spring:message code="boardUpdate.number7"/>">${dto.content}</textarea>
 			    </div>
 			    <div style="text-align: center;">
 			        <!-- 게시물번호를 hidden으로 처리 -->
 			        <input type="hidden" name="bno" value="${dto.bno}">
 			    	<!-- 본인이 쓴 게시물만 수정, 삭제가 가능하도록 처리 -->
 			    	<c:if test="${sessionScope.userId == dto.writer}">
-			        	<button type="button" id="btnUpdete">확인</button>
+			        	<button type="button" id="btnUpdete"><spring:message code="boardUpdate.number8"/></button>
 			    	</c:if>
 			    	<!-- **상세보기 화면에서 게시글 목록화면으로 이동 -->
-			        <button type="button" onclick="javascript_:history.go(-1);">취소</button>
+			        <button type="button" onclick="javascript_:history.go(-1);"><spring:message code="boardUpdate.number9"/></button>
 			    </div>
 			</form>
 		</div>

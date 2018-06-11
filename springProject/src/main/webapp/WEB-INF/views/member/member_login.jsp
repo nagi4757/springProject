@@ -14,12 +14,12 @@
 		            var userId = $("#userId").val();
 		            var userPw = $("#userPw").val();
 		            if(userId == ""){
-		                alert("아이디를 입력하세요.");
+		                alert("<spring:message code="login.alert1"/>");
 		                $("#userId").focus(); // 입력포커스 이동
 		                return; // 함수 종료
 		            }
 		            if(userPw == ""){
-		                alert("비밀번호를 입력하세요.");
+		                alert("<spring:message code="login.alert2"/>");
 		                $("#userPw").focus();
 		                return;
 		            }
@@ -42,28 +42,43 @@
 	            		</div>
 	            		<div class="modal-body">
 	              			<div class="form-group">
-	                			<label for="ID">아이디</label>
+	                			<label for="ID"><spring:message code="login.number1"/></label>
 	                 			<input type="text" class="form-control form-control-lg rounded-0" name="userId" id="userId">
 	              			</div>
 	              			<div class="form-group">
-	                			<label>비밀번호</label>
+	                			<label><spring:message code="login.number2"/></label>
 	                			<input type="password" class="form-control form-control-lg rounded-0" id="userPw" name="userPw" autocomplete="new-password">
 	              			</div>
 	              			<label style="color:red">
 	              				<c:if test="${msg == 'failure'}">
 				                    <div style="color: red">
-				                    	아이디 또는 비밀번호가 일치하지 않습니다.
+				                    	<spring:message code="login.number3"/>
 				                    </div>
 				                </c:if>
 				                <c:if test="${msg == 'logout'}">
 				                    <div style="color: red">
-				                    	로그아웃되었습니다.
+				                    	<spring:message code="login.number4"/>
+				                    </div>
+				                </c:if>
+				                <c:if test="${msg == 'EmailAuthFailure'}">
+				                    <div style="color: red">
+				                    	<spring:message code="login.number6"/>
+				                    </div>
+				                </c:if>
+				                <c:if test="${msg == 'EmailAuthSuccess'}">
+				                    <div style="color: red">
+				                    	<spring:message code="login.number7"/>
+				                    </div>
+				                </c:if>
+				                <c:if test="${msg == 'EmailAuthError'}">
+				                    <div style="color: red">
+				                    	<spring:message code="login.number8"/>
 				                    </div>
 				                </c:if>
 				           	</label>
 	            		</div>
 	            		<div class="modal-footer">
-	              			<button type="button" class="btn btn-secondary" id="btnLogin">로그인</button>
+	              			<button type="button" class="btn btn-secondary" id="btnLogin"><spring:message code="login.number5"/></button>
 	            		</div>
 					</div>
 	         	</div>    

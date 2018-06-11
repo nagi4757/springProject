@@ -3,7 +3,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>나기의 세상 - Nagi's World</title>
+		<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+		<title><spring:message code="title.number1"/> - Nagi's World</title>
 		<%@ include file="../include/header.jsp" %>
 		<script>
 			$(document).ready(function(){
@@ -20,7 +21,7 @@
 		    			url:"${path}/reply/insert.do",
 		    			data:param,
 		    			success:function(){
-		    				alert("댓글이 등록되었습니다.");
+		    				alert("<spring:message code="lectureView.alert1"/>");
 		    				$("#replytext").val('');
 			    			listReply(1);	
 		    			}
@@ -54,7 +55,7 @@
 		        <div class="col-lg-12">
 		        	<hr>
 		          	<!-- Date/Time -->
-		          	<p>작성일자 : <fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd a HH:mm:ss"/></p>
+		          	<p><spring:message code="lectureView.number1"/> <fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd a HH:mm:ss"/></p>
 		          	<hr>
 					
 				  	${dto.content}
@@ -68,12 +69,12 @@
 		          	<!-- Comments Form -->
 		          	<c:if test="${sessionScope.userId != null}">
 			          	<div class="card my-4">
-			            	<h5 class="card-header">댓글쓰기</h5>
+			            	<h5 class="card-header"><spring:message code="lectureView.number2"/></h5>
 			            	<div class="card-body">
 				            	<div class="form-group">
 				                	<textarea class="form-control" rows="3" id="replytext"></textarea>
 				                </div>
-				                <button type="button" class="btn btn-primary" id="btnReply">댓글등록</button>
+				                <button type="button" class="btn btn-primary" id="btnReply"><spring:message code="lectureView.number3"/></button>
 				            </div>
 			          	</div>
 		          	</c:if>

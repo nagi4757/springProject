@@ -3,7 +3,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>나기의 세상 - Nagi's World</title>
+		<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+		<title><spring:message code="title.number1"/> - Nagi's World</title>
 		
 		<%@ include file="../include/adminCheck.jsp" %>
 		<%@ include file="../include/header.jsp" %>
@@ -54,8 +55,8 @@
     				<div>
     					게시판 선택 :
     					<select name="boardSelect" id="boardSelect">
-    						<option value="2">Python</option>
-    						<option value="3">UML 시스템 설계</option>
+    						<option value="2">Spring</option>
+    						<option value="3">JavaScript</option>
     					</select>
     					<!-- 레코드의 갯수를 출력 -->
 		    			${map.count}개의 게시물이 있습니다.

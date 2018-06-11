@@ -29,4 +29,10 @@ public interface MemberDAO {
 	public boolean checkId(String id);
 	// 닉네임 체크
 	public boolean checkName(String name);
+	// 이메일 체크
+	public boolean checkEmail(String email);
+	// 이메일 인증키 검증
+	public boolean checkEmailAuth(String id);
+	// 이메일 인증확인
+	public boolean emailConfirm(String userId, String emailAuthKey);
 }

@@ -29,7 +29,5 @@
 		document.getElementById("langChangeLang").value = lang;
 		document.langChange.submit();
 	}
-	
-	
 </script>
 </head>

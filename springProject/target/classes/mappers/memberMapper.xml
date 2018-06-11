@@ -25,9 +25,9 @@
 	<!-- 회원 등록 -->
 	<insert id="insertMember">
 		INSERT INTO tbl_member
-			(user_no, user_id, user_pw, user_name, user_email)
+			(user_no, user_id, user_pw, user_name, user_email, user_emailAuthKey)
 		VALUES 
-			(NULL, #{userId}, #{userPw}, #{userName}, #{userEmail})	
+			(NULL, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{userEmailAuthKey})	
 	</insert>
 	
 	<!-- 회원정보 상세조회 -->
@@ -61,7 +61,7 @@
 			user_pw = #{userPw},
 			user_name = #{userName},
 			user_email = #{userEmail},
-			user_updatedate = SYSDATE
+			user_updatedate = NULL
 		WHERE
 			user_id = #{userId}	
 	</update>
@@ -95,4 +95,39 @@
 		FROM tbl_member
         WHERE user_name = #{name}
 	</select>
+	
+	<!-- 이메일 체크 -->
+	<select id="checkEmail" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM tbl_member
+		WHERE user_email = #{email}
+	</select>
+	
+	<!-- 이메일 인증 검증 -->
+	<select id="checkEmailAuth" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM tbl_member
+		WHERE user_id = #{id} AND user_is_emailAuth = 'Y'
+	</select>
+	
+	<!-- 이메일 인증 확인 -->
+	<select id="emailConfirm" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM tbl_member
+		WHERE user_id = #{userId} AND user_emailAuthKey = #{emailAuthKey}
+	</select>
+	
+	<!-- 이메일 인증 검증 수정 -->
+	<update id="updateEmailAuth">
+		UPDATE tbl_member
+		SET
+			user_is_emailAuth = 'Y',
+			user_updatedate = NULL
+		WHERE
+			user_id = #{userId}	
+	</update>
+	
 </mapper>
